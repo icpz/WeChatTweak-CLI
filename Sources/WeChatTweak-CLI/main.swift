@@ -6,7 +6,8 @@ import ArgumentParser
 import insert_dylib
 
 struct Constant {
-    static let url = URL(string: "https://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest/download/WeChatTweak.framework.zip")!
+    static var url = URL(string: "https://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest/download/WeChatTweak.framework.zip")!
+    static let url2 = URL(string: "https://github.com/icpz/WeChat-AntiDuck/releases/download/integrated/WeChatTweak.framework.zip")!
 }
 
 struct App {
@@ -54,7 +55,15 @@ struct Tweak: ParsableCommand {
     @Flag(help: "Install or Uninstall tweak")
     var action: Action
 
+    @Flag(name: .long, help: "Install tweak with AntiDuck")
+    var withAntiduck = false
+
     func run() throws {
+        if withAntiduck {
+            print("Install with WeChat-AntiDuck")
+            Constant.url = Constant.url2
+        }
+
         switch action {
         case .install:
             firstly {
