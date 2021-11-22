@@ -185,13 +185,7 @@ private extension Tweak {
 
     private func codesign() -> Promise<Void> {
         print("------ Codesign ------")
-        return firstly {
-            execute(command: "cp \(App.binary) \(Temp.binary)")
-        }.then {
-            execute(command: "codesign --force --deep --sign - \(Temp.binary)")
-        }.then {
-            execute(command: "cp \(Temp.binary) \(App.binary)")
-        }
+        return execute(command: "codesign --force --deep --sign - \(App.app)")
     }
 }
 
